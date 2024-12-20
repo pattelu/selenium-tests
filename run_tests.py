@@ -9,6 +9,7 @@ def main():
         '--maxfail=1',
         '--disable-warnings',
         '--verbose',
+        '-s',
         'tests'
     ]
 
