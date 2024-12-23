@@ -1,23 +1,21 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 import time
 
 class LoginPage:
+    # login page
+    username = (By.ID, "username")
+    password = (By.ID, "password")
+    error_text = (By.ID, "flash")
+    # logged page
+    login_text = (By.CLASS_NAME, "subheader")
+    # buttons
+    login_btn = (By.CSS_SELECTOR, "#login > button")
+    logout_btn = (By.CSS_SELECTOR, "body > main > div.page-layout > div > a > i")
+
     def __init__(self, driver):
         self.driver = driver
-
-        # login page
-        self.username = (By.ID, "username")
-        self.password = (By.ID, "password")
-
-        # logged page
-        self.login_text = (By.CLASS_NAME, "subheader")
-
-        self.error_text = (By.ID, "flash")
-
-        # buttons
-        self.login_btn = (By.CSS_SELECTOR, "#login > button")
-        self.logout_btn = (By.CSS_SELECTOR, "body > main > div.page-layout > div > a > i")
+        self.wait = WebDriverWait(driver, 10)
 
     def login_data(self, username, password):
         self.driver.find_element(*self.username).send_keys(username)
@@ -46,8 +44,8 @@ class LoginPage:
         print(f"Page error: {error_massage}")
         return loggedout_text in self.driver.find_element(*self.error_text).text
 
-    def scroll_to_bottom(self):
-        self.driver.find_element(By.TAG_NAME, "body").send_keys(Keys.PAGE_DOWN)
+    def scroll_by_pixels(self, pixels):
+        self.driver.execute_script(f"window.scrollBy(0,{pixels});")
         time.sleep(2)
 
     def login_button(self):

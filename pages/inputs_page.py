@@ -1,24 +1,26 @@
+import time
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 class InputsPage:
+    # inputs
+    input_number = (By.ID, "input-number")
+    input_text = (By.ID, "input-text")
+    input_password = (By.ID, "input-password")
+    input_date = (By.ID, "input-date")
+    # outputs
+    output_number = (By.ID, "output-number")
+    output_text = (By.ID, "output-text")
+    output_password = (By.ID, "output-password")
+    output_date = (By.ID, "output-date")
+    # buttons
+    display_inputs_btn = (By.ID, "btn-display-inputs")
+    clear_inputs_btn = (By.ID, "btn-clear-inputs")
+
     def __init__(self, driver):
         self.driver = driver
-
-        #inputs
-        self.input_number = (By.ID, "input-number")
-        self.input_text = (By.ID, "input-text")
-        self.input_password = (By.ID, "input-password")
-        self.input_date = (By.ID, "input-date")
-
-        #outputs
-        self.output_number = (By.ID, "output-number")
-        self.output_text = (By.ID, "output-text")
-        self.output_password = (By.ID, "output-password")
-        self.output_date = (By.ID, "output-date")
-
-        #buttons
-        self.display_inputs_btn = (By.ID, "btn-display-inputs")
-        self.clear_inputs_btn = (By.ID, "btn-clear-inputs")
+        self.wait = WebDriverWait(driver, 10)
 
     def input_values(self, number, text, password, date):
         self.driver.find_element(*self.input_number).send_keys(number)
