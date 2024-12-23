@@ -1,5 +1,3 @@
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -28,12 +26,23 @@ class InputsPage:
         self.driver.find_element(*self.input_password).send_keys(password)
         self.driver.find_element(*self.input_date).send_keys(date)
 
+    def input_date_ff(self, yyyy, mm, dd):
+        input_date = self.driver.find_element(*self.input_date)
+        input_date.send_keys(mm)
+        input_date.send_keys(dd)
+        input_date.send_keys(yyyy)
+
     def check_output_number(self):
         input_number = self.driver.find_element(*self.input_number).get_attribute("value")
         output_number = self.driver.find_element(*self.output_number).text
         print(f"Input number: {input_number}")
         print(f"Output number: {output_number}")
-        return self.driver.find_element(*self.input_number).get_attribute("value") == self.driver.find_element(*self.output_number).text
+        if input_number == "":
+            print("Input is empty, characters not accepted.")
+            return None
+        else:
+            print("Input is not empty, characters are accepted.")
+            return self.driver.find_element(*self.input_number).get_attribute("value") == self.driver.find_element(*self.output_number).text
 
     def check_output_text(self):
         input_text = self.driver.find_element(*self.input_text).get_attribute("value")
@@ -54,7 +63,12 @@ class InputsPage:
         date_output = self.driver.find_element(*self.output_date).text
         print(f"Input date: {date_input}")
         print(f"Output Date: {date_output}")
-        return self.driver.find_element(*self.input_date).get_attribute("value") == self.driver.find_element(*self.output_date).text
+        if date_input == "":
+            print("Input is empty, characters not accepted.")
+            return None
+        else:
+            print("Input is not empty, characters are accepted.")
+            return self.driver.find_element(*self.input_date).get_attribute("value") == self.driver.find_element(*self.output_date).text
 
     def display_inputs(self):
         self.driver.find_element(*self.display_inputs_btn).click()
