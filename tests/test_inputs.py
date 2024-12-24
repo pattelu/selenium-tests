@@ -2,7 +2,6 @@ import pytest
 from pages.inputs_page import InputsPage
 from base_test import driver
 from base_test import manage_browser
-import time
 
 @pytest.fixture
 def inputs_page(driver):

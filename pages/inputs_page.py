@@ -26,12 +26,6 @@ class InputsPage:
         self.driver.find_element(*self.input_password).send_keys(password)
         self.driver.find_element(*self.input_date).send_keys(date)
 
-    def input_date_ff(self, yyyy, mm, dd):
-        input_date = self.driver.find_element(*self.input_date)
-        input_date.send_keys(mm)
-        input_date.send_keys(dd)
-        input_date.send_keys(yyyy)
-
     def check_output_number(self):
         input_number = self.driver.find_element(*self.input_number).get_attribute("value")
         output_number = self.driver.find_element(*self.output_number).text
